@@ -1,6 +1,6 @@
 import express from 'express';
 import usersRouter from './routes/users/auth';
-
+import bookRouter from './routes/books/books';
 const app = express();
 
 // db.connect();
@@ -13,6 +13,7 @@ app.use(
 );
 
 app.use('/auth', usersRouter);
+app.use('/books', bookRouter);
 
 
 export default app;
