@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 import db from '../models/db';
-import Validate from '../helpers/Validate';
 
 class Book {
     /* create */
@@ -12,23 +11,10 @@ class Book {
                 error: 'unauthorized access',
             });
         }
-        // Validate inputs
-        // const checkInputs = [];
-        // checkInputs.push(Validate.string(req.body.location, true));
-        // checkInputs.push(Validate.string(req.body.topic, true));
-
-        // for (let i = 0; i < checkInputs.length; i += 1) {
-        //     if (checkInputs[i].isValid === false) {
-        //         return res.status(400).json({
-        //             status: 400,
-        //             error: checkInputs[i].error,
-        //         });
-        //     }
-        // }
 
         const text = `INSERT INTO
       books("serialNumber", title, price)
-      VALUES($1, $2, $3) RETURNING *`;
+      VALUES ($1, $2, $3) RETURNING*`;
 
         const values = [
             req.body.serialNumber,
@@ -45,7 +31,6 @@ class Book {
                     error: 'Sorry, this book is already registered',
                 });
             }
-
             const {
                 rows,
             } = await db.query(text, values);
@@ -53,7 +38,7 @@ class Book {
             if (rows.length > 0) {
                 rows[0].createdOn = new Date(rows[0].createdOn).toDateString();
                 return res.status(201).json({
-                    messsage: 'Books successfuly registered',
+                    message: ' book registered successfully',
                     status: 201,
                     data: rows[0],
                 });
@@ -73,16 +58,11 @@ class Book {
         try {
             const {
                 rows,
-            } = await db.query('SELECT * FROM books');
+            } = await db.query('SELECT * FROM books ORDER BY price DESC');
             if (rows.length > 0) {
-                const books = [];
-                rows.forEach((book) => {
-                    books.createdOn = new Date(book.createdOn).toDateString();
-                    books.push(book);
-                });
                 return res.status(200).json({
                     status: 200,
-                    data: books,
+                    data: rows,
                 });
             }
             return res.status(400).json({
@@ -116,29 +96,7 @@ class Book {
         }
     }
 
-    /** get book by price */
-    static async getBookByPrice(req, res) {
-        try {
-            const {
-                rows,
-            } = await db.query('SELECT * FROM books WHERE id=$1', [req.params.price]);
-            if (rows.length > 0) {
-                rows[0].createdOn = new Date(rows[0].createdOn).toDateString();
-                return res.status(200).json({
-                    status: 200,
-                    data: rows[0],
-                });
-            }
-            return res.status(400).json({
-                status: 404,
-                error: 'This book is not in our database',
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    /* delete a meetup */
+    /* delete a book */
     static async deleteBook(req, res) {
         // admin only
         if (req.userType !== 'admin') {

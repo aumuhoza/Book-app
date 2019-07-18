@@ -1,32 +1,51 @@
-# Book-app
-the application stores books  information (name,serial number, and price), it allws users to signup , login , register book information and retrive a report of all available books 
+# BOOK APP
 
-Controllers 
-#user.js 
-#books.js
+A Web application that allows a user to register books. ​ Book App helps the library managers to register books with their serial numbers.
 
-Helpers
-#validate.js 
-validate the user inputs base on the criteria of case sensitivity , numbers, characters and required fields. 
-if user inputs does not meet the criterias , an error is prompted  otherwise user is succefully signed up 
+## Getting started
 
-Middlewares
-#verifyToken.js
-verifies the token given to user upon login, checks the correspondance to the user ID and type before access is granted.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Models
-#db.js
-creates database // checks conenction to the database 
-#tables.js 
+## Prerequisites
 
-drop /creates user and book tables 
+You need to install the following to be able to run the project on your local machine.
 
-Routes
-    books
-#books.js 
+To check if you have Node.js installed, run this command in your terminal:
 
-    users 
-#auth.js
-#index.js
-#app.js
-#server.js
+`node -v`
+
+To confirm that you have npm installed you can run this command in your terminal:
+
+`npm -v`
+
+## Then
+
+`npm install npm@latest -g`
+
+## Installing
+
+Installing this application is fairly straightforward. After cloning this repository to your local environment,CD into the package folder on your favorite terminal... bash, command prompt or the like and run the following:
+
+      > npm install
+      this command installs all dependences.
+
+This runs the following script on the background processes;
+
+      > npm run dev
+
+This command starts the dev server on port 8080.
+
+## Running the api & tests Locally
+
+- To clone this repo: in your terminal => use git clone https://github.com
+- Switch to develop branch with => git checkout develop
+- Run `npm run dev` You should see: "Server started, App runing on port 8080.
+- With Postman, test if all endpoints work (Find a list of endpoint in the table at the bottom of this page)
+
+## RESTful API Routes.
+
+| Method | Endpoint                          | Description                               |
+| ------ | --------------------------------- | ------------------------- ----------------|
+| POST   | /auth/register                    | Register a user                           |
+| POST   | /auth/login                       | User login                                |
+| GET    | /books                            | query all books sorted by price           |
