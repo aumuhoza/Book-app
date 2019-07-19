@@ -37,7 +37,7 @@ This command starts the dev server on port 8080.
 
 ## Running the api & tests Locally
 
-- To clone this repo: in your terminal => use git clone https://github.com
+- To clone this repo: in your terminal => use git clone https://github.com/aumuhoza/Book-app.git
 - Switch to develop branch with => git checkout develop
 - Run `npm run dev` You should see: "Server started, App runing on port 8080.
 - With Postman, test if all endpoints work (Find a list of endpoint in the table at the bottom of this page)
